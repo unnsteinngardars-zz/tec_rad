@@ -47,7 +47,10 @@ namespace TecRad.WebApi.Controllers
 		}
 
 		[HttpPost]
-		[Route("{categoryId}")]
+		[Route("{categoryId:int}/newsItems/{newsItemId:int}")]
+		public IActionResult LinkNewsItemToCategory(int categoryId, int newsItemId){
+			return Ok();
+		}
 
 	}
 }

@@ -1,6 +1,9 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace TecRad.Models.NewsItem
 {
-	public class NewItemInputModel
+	public class NewsItemInputModel
 	{
 		[Required]
 		public string Title { get; set; }

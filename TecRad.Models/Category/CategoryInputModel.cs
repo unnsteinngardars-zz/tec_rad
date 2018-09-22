@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TecRad.Models.Category
 {
 	public class CategoryInputModel

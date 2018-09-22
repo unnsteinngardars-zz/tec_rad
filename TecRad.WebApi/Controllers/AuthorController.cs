@@ -51,6 +51,12 @@ namespace TecRad.WebApi.Controllers
 		{
 			return NoContent();
 		}
+
+		[HttpPost]
+		[Route("{authorId:int}/newsItems/{newsItemId:int}")]
+		public IActionResult LinkAuthorToNewsItem(int authorId, int newsItemId){
+			return Ok();
+		}
 	}
 
 

@@ -1,4 +1,6 @@
-namespace TecRad.Models.obj.Author
+using System.ComponentModel.DataAnnotations;
+
+namespace TecRad.Models.Author
 {
 	public class AuthorInputModel
 	{
