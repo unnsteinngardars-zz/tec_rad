@@ -1,0 +1,12 @@
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\bin\Debug\netstandard2.0\TecRad.Repositories.deps.json
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\bin\Debug\netstandard2.0\TecRad.Repositories.dll
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\bin\Debug\netstandard2.0\TecRad.Repositories.pdb
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\bin\Debug\netstandard2.0\TecRad.Models.dll
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\bin\Debug\netstandard2.0\TecRad.Models.pdb
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.csprojAssemblyReference.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.csproj.CoreCompileInputs.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.AssemblyInfoInputs.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.AssemblyInfo.cs
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.csproj.CopyComplete
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.dll
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Repositories\obj\Debug\netstandard2.0\TecRad.Repositories.pdb

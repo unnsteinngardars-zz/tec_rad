@@ -8,7 +8,7 @@ namespace TecRad.Repositories.Data
 {
 	public static class DataContext
 	{
-		private static List<NewsItem> _newsItems = new List<NewsItem>
+		public static List<NewsItem> _newsItems = new List<NewsItem>
 		{
 			new NewsItem
 			{
@@ -19,7 +19,9 @@ namespace TecRad.Repositories.Data
 				PublishDate = DateTime.Now,
 				ModifiedBy = "Davíð Oddsson",
 				CreatedDate = DateTime.Now,
-				ModifiedDate = DateTime.Now
+				ModifiedDate = DateTime.Now,
+				AuthorId = 1,
+				CategoryId = 3
 			},
 			new NewsItem
 			{
@@ -30,7 +32,9 @@ namespace TecRad.Repositories.Data
 				PublishDate = DateTime.Now,
 				ModifiedBy = "Ásdís Erna Guðmundsdóttir",
 				CreatedDate = DateTime.Now,
-				ModifiedDate = DateTime.Now
+				ModifiedDate = DateTime.Now,
+				AuthorId = 2,
+				CategoryId = 2
 			},
 			new NewsItem
 			{
@@ -40,6 +44,8 @@ namespace TecRad.Repositories.Data
 				LongDescription = "Tónlistarfólkið Jóhanna Guðrún Jónsdóttir og Davíð Sigurgeirsson lét pússa sig saman í Garðakirkju í Garðabæ í dag. Jóhanna Guðrún er landsfræg fyrir sönghæfileika sína og en hún hefur starfað á því sviði frá barnsaldri.",
 				PublishDate = DateTime.Now,
 				ModifiedBy = "Unnsteinn Garðarsson",
+				AuthorId = 1,
+				CategoryId = 2
 
 			},
 			new NewsItem
@@ -50,7 +56,9 @@ namespace TecRad.Repositories.Data
 				LongDescription = "Jurgen Klopp vill að Liverpool verði „ljótasta“ liðið í ensku úrvalsdeildinni."
 								+ "Liverpool hefur spilað fótbolta sem þykir mjög skemmtilegur á að horfa undir stjórn Þjóðverjans. Með Roberto Firmino, Mohamed Salah og Sadio Mane í framlínunni er liðið með mikið og ógnandi sóknarafl.",
 				PublishDate = DateTime.Now,
-				ModifiedBy = "Ásdís Erna Guðmundsdóttir"
+				ModifiedBy = "Ásdís Erna Guðmundsdóttir",
+				AuthorId = 2,
+				CategoryId = 5
 			},
 			new NewsItem
 			{
@@ -59,12 +67,14 @@ namespace TecRad.Repositories.Data
 				ShortDescription = "Skagamenn eru komnir upp í Pepsideild karla í fótbolta á nýjan leik",
 				LongDescription = "Skagamenn eru komnir upp í Pepsideild karla í fótbolta á nýjan leik og þeir ættu að hafa nóg af ungum og flottum strákum þar sem að 2. flokkur félagsins tryggði sér Íslandsmeistaratitilinn í gær.",
 				PublishDate = DateTime.Now,
-				ModifiedBy = "Unnsteinn Garðarsson"
+				ModifiedBy = "Unnsteinn Garðarsson",
+				AuthorId = 1,
+				CategoryId = 7
 			}
 
 		};
 
-		private static List<Category> _categories = new List<Category>
+		public static List<Category> _categories = new List<Category>
 		{
 			new Category
 			{
@@ -148,7 +158,7 @@ namespace TecRad.Repositories.Data
 			}
 		};
 
-		private static List<Author> _authors = new List<Author>
+		public static List<Author> _authors = new List<Author>
 		{
 			new Author
 			{
@@ -170,7 +180,7 @@ namespace TecRad.Repositories.Data
 				CreatedDate = DateTime.Now,
 				ModifiedDate = DateTime.Now
 			}
-		}
+		};
 
 	}
 }

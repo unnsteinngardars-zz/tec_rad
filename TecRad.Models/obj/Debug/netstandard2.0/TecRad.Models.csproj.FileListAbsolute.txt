@@ -1,0 +1,9 @@
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\bin\Debug\netstandard2.0\TecRad.Models.deps.json
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\bin\Debug\netstandard2.0\TecRad.Models.dll
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\bin\Debug\netstandard2.0\TecRad.Models.pdb
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.csprojAssemblyReference.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.csproj.CoreCompileInputs.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.AssemblyInfoInputs.cache
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.AssemblyInfo.cs
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.dll
+C:\Veftjonustur\TecRad\tec_rad\TecRad.Models\obj\Debug\netstandard2.0\TecRad.Models.pdb
