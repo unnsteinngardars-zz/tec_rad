@@ -65,7 +65,7 @@
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "8V3g0OksTR+ISCo4hMup9YD8MnnLCxH576C0eMGwfCFfW3vKJBxSMJ2JX9accxArF4EC/Vlmu6ZCckWYo5JfWg==",
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -311,23 +311,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ásdís Erna\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/Users/unnsteinngardarsson/.nuget/packages/": {},
+    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Services\\TecRad.Services.csproj",
+      "projectUniqueName": "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Services/TecRad.Services.csproj",
       "projectName": "TecRad.Services",
-      "projectPath": "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Services\\TecRad.Services.csproj",
-      "packagesPath": "C:\\Users\\Ásdís Erna\\.nuget\\packages\\",
-      "outputPath": "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Services\\obj\\",
+      "projectPath": "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Services/TecRad.Services.csproj",
+      "packagesPath": "/Users/unnsteinngardarsson/.nuget/packages/",
+      "outputPath": "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Services/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ásdís Erna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/unnsteinngardarsson/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
@@ -338,11 +338,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Models\\TecRad.Models.csproj": {
-              "projectPath": "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Models\\TecRad.Models.csproj"
+            "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Models/TecRad.Models.csproj": {
+              "projectPath": "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Models/TecRad.Models.csproj"
             },
-            "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Repositories\\TecRad.Repositories.csproj": {
-              "projectPath": "c:\\Veftjonustur\\TecRad\\tec_rad\\TecRad.Repositories\\TecRad.Repositories.csproj"
+            "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Repositories/TecRad.Repositories.csproj": {
+              "projectPath": "/Users/unnsteinngardarsson/Dropbox/03_HR/Fifth_semester/VEFT/Assignments/large/assignment01/tec_rad/TecRad.Repositories/TecRad.Repositories.csproj"
             }
           }
         }
