@@ -8,10 +8,10 @@ namespace TecRad.Repositories.Interfaces
     public interface IDataContext
     {
         //TODO Athuga betur get private og public drasl í data Context!
-        /* 
-         List<NewsItem> _newsItems;
-         List<Category> _categories;
-         List<Author> _authors;
-        */
+        
+         List<NewsItem> getNewsItems { get; set; }
+         List<Category> getCategories { get; set; }
+         List<Author> getAuthors { get; set; }
+        
     }
 }

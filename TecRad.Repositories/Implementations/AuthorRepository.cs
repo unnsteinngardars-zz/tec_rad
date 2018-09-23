@@ -10,41 +10,45 @@ namespace TecRad.Repositories
 {
 	public class AuthorRepository : IAuthorRepository
 	{
-		public AuthorRepository(){
-			
+		private readonly IDataContext _dataContext;
+		public AuthorRepository(IDataContext dataContext){
+			_dataContext = dataContext;			
 		}
-		public IEnumerable<AuthorDTO> GetAllAuthors(int pageSize, int pageNumber) => 
-			// TODO: Athuga með þetta pageSize og pageNumber
-			Mapper.Map<IEnumerable<AuthorDTO>>(DataContext._authors);
+		public IEnumerable<Author> GetAllAuthors() => 
+			_dataContext.getAuthors;
 
-		public AuthorDTO GetAuthorById(int authorId) => 
-			Mapper.Map<AuthorDTO>(DataContext._authors.FirstOrDefault(a => a.Id == authorId));
+		public Author GetAuthorById(int authorId) => 
+			_dataContext.getAuthors.FirstOrDefault(a => a.Id == authorId);
 	
 
-		public IEnumerable<NewsItemDTO> GetNewsItemsForAuthor(int authorId) => 
-			Mapper.Map<IEnumerable<NewsItemDTO>>(DataContext._newsItems.Where(n => n.AuthorId == authorId));
+		public IEnumerable<NewsItem> GetNewsItemsForAuthor(int authorId) => 
+			_dataContext.getNewsItems.Where(n => n.AuthorId == authorId);
 
 		public int CreateNewAuthor(AuthorInputModel author){
-			var nextId = DataContext._authors.Count() + 1;
+			var nextId = _dataContext.getAuthors.Count() + 1;
 			Author entity = Mapper.Map<Author>(author);
 			entity.Id = nextId;
-			DataContext._authors.Add(entity);
+			_dataContext.getAuthors.Add(entity);
 			return nextId;
 		}
 
 		public void UpdateAuthorById(AuthorInputModel author, int authorId){
-			var updateAuthor = DataContext._authors.FirstOrDefault(a => a.Id == authorId);
-
-			if(updateAuthor == null) return;
-
+			var updateAuthor = _dataContext.getAuthors.FirstOrDefault(a => a.Id == authorId);
 			updateAuthor.Name = author.Name;
 			updateAuthor.Bio = author.Bio;
 			updateAuthor.ProfileImgSource = author.ProfileImgSource;
 		}
 
-		public void DeleteAuthor(AuthorDTO author){
-			DataContext._authors.Remove(Mapper.Map<Author>(author));
+		public void DeleteAuthor(Author author){
+			_dataContext.getAuthors.Remove(author);
 		}
-			
-	}
+
+        public void LinkAuthorToNewsItem(int authorId, int newsItemId)
+        {
+			var author = _dataContext.getAuthors.FirstOrDefault(a => a.Id == authorId);
+			var newsItem = _dataContext.getNewsItems.FirstOrDefault(n => n.Id == newsItemId);
+
+			newsItem.AuthorId = authorId;
+        }
+    }
 }

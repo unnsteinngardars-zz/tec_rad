@@ -6,12 +6,12 @@ namespace TecRad.Repositories.Interfaces
 {
     public interface IAuthorRepository
     {
-        IEnumerable<AuthorDTO> GetAllAuthors(int pageSize, int pageNumber);
-        AuthorDTO GetAuthorById(int authorId);
-        IEnumerable<NewsItemDTO> GetNewsItemsForAuthor(int authorId);
+        IEnumerable<Author> GetAllAuthors();
+        Author GetAuthorById(int authorId);
+        IEnumerable<NewsItem> GetNewsItemsForAuthor(int authorId);
         int CreateNewAuthor(AuthorInputModel author);
         void UpdateAuthorById(AuthorInputModel author, int authorId);
-        void DeleteAuthor(AuthorDTO author);
-
+        void DeleteAuthor(Author author);
+        void LinkAuthorToNewsItem(int authorId, int newsItemId);
     }
 }

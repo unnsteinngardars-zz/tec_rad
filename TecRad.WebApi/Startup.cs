@@ -14,6 +14,13 @@ using AutoMapper;
 using TecRad.Models.NewsItem;
 using TecRad.Models.Author;
 using TecRad.Models.Category;
+using TecRad.Services.Interfaces;
+using TecRad.Services;
+using TecRad.Repositories.Interfaces;
+using TecRad.Repositories;
+using TecRad.Services.Implementations;
+using TecRad.Repositories.Data;
+using TecRad.WebApi.Extensions;
 
 namespace TecRad.WebApi
 {
@@ -30,6 +37,16 @@ namespace TecRad.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<INewsItemService, NewsItemService>();
+            services.AddTransient<INewsItemRepository, NewsItemRepository>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ILogService, LogService>();
+            services.AddSingleton<IDataContext, DataContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +61,7 @@ namespace TecRad.WebApi
                 app.UseHsts();
             }
 
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
 

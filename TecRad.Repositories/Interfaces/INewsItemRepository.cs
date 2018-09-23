@@ -5,11 +5,11 @@ namespace TecRad.Repositories.Interfaces
 {
     public interface INewsItemRepository
     {
-         IEnumerable<NewsItemDTO> GetAllNewsItems();
-         NewsItemDTO GetNewsItemById(int newsItemId);
+         IEnumerable<NewsItem> GetAllNewsItems();
+         NewsItem GetNewsItemById(int newsItemId);
          int CreateNewNewsItem(NewsItemInputModel newsItem);
          void UpdateNewsItemById(NewsItemInputModel newsItem, int newsItemId);
-         void DeleteNewsItem(NewsItemDTO newsItem);
+         void DeleteNewsItem(NewsItem newsItem);
 
     }
 }

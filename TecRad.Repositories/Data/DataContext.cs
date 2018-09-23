@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using TecRad.Models.Author;
 using TecRad.Models.Category;
 using TecRad.Models.NewsItem;
+using TecRad.Repositories.Interfaces;
 
 namespace TecRad.Repositories.Data
 {
-	public static class DataContext
+	public class DataContext : IDataContext
 	{
-		public static List<NewsItem> _newsItems = new List<NewsItem>
+		private static List<NewsItem> _newsItems = new List<NewsItem>
 		{
 			new NewsItem
 			{
@@ -74,7 +75,7 @@ namespace TecRad.Repositories.Data
 
 		};
 
-		public static List<Category> _categories = new List<Category>
+		private static List<Category> _categories = new List<Category>
 		{
 			new Category
 			{
@@ -158,7 +159,7 @@ namespace TecRad.Repositories.Data
 			}
 		};
 
-		public static List<Author> _authors = new List<Author>
+		private static List<Author> _authors = new List<Author>
 		{
 			new Author
 			{
@@ -182,5 +183,11 @@ namespace TecRad.Repositories.Data
 			}
 		};
 
-	}
+        public List<Author> getAuthors { get => _authors; set => _authors = value; }
+
+        public List<Category> getCategories { get => _categories; set => _categories = value; }
+
+        public List<NewsItem> getNewsItems { get => _newsItems; set => _newsItems = value; }
+    
+    }
 }

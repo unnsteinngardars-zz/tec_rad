@@ -5,6 +5,7 @@ using TecRad.Models.NewsItem;
 using TecRad.Repositories;
 using TecRad.Repositories.Interfaces;
 using TecRad.Services.Interfaces;
+using AutoMapper;
 
 namespace TecRad.Services
 {
@@ -28,9 +29,9 @@ namespace TecRad.Services
             _repo.DeleteAuthor(author);
         }
 
-        public IEnumerable<AuthorDTO> GetAllAuthors(int pageSize, int pageNumber)
+        public IEnumerable<AuthorDTO> GetAllAuthors()
         {
-            return _repo.GetAllAuthors(pageSize, pageNumber);
+            return Mapper.Map<IEnumerable<AuthorDTO>>(_repo.GetAllAuthors());
         }
 
         public AuthorDTO GetAuthorById(int authorId)
@@ -38,7 +39,7 @@ namespace TecRad.Services
             var author = _repo.GetAuthorById(authorId);
             if(author == null) { throw new ResourceNotFoundException($"Author with id {authorId} was not found."); }
             
-            return author;
+            return Mapper.Map<AuthorDTO>(author);
         }
 
         public IEnumerable<NewsItemDTO> GetNewsItemsForAuthor(int authorId)
@@ -46,7 +47,15 @@ namespace TecRad.Services
             var author = _repo.GetAuthorById(authorId);
             if(author == null) { throw new ResourceNotFoundException($"Author with id {authorId} was not found."); }
             
-            return _repo.GetNewsItemsForAuthor(authorId);
+            return Mapper.Map<IEnumerable<NewsItemDTO>>(_repo.GetNewsItemsForAuthor(authorId));
+        }
+
+        public void LinkAuthorToNewsItem(int authorId, int newsItemId)
+        // TODO: Athuga hvort að við eigum að taka inn newsItem repo líka til að athuga með ID og kasta þá exceptioni 
+
+        {   var author = _repo.GetAuthorById(authorId);
+            if(author == null) { throw new ResourceNotFoundException($"Author with id {authorId} was not found."); }
+            _repo.LinkAuthorToNewsItem(authorId, newsItemId);
         }
 
         public void UpdateAuthorById(AuthorInputModel author, int authorId)
