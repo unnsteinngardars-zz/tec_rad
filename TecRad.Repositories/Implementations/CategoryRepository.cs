@@ -21,11 +21,12 @@ namespace TecRad.Repositories
             _dataContext.getCategories.FirstOrDefault(c => c.Id == categoryId);
 
         public int CreateNewCategory(CategoryInputModel category){
-            var nextId = _dataContext.getCategories.Count();
+            var items = _dataContext.getCategories;
             var entity = Mapper.Map<Category>(category);
-            entity.Id = nextId;
-            _dataContext.getCategories.Add(entity);
-            return nextId;
+            entity.Id = items.Count +1;
+            items.Add(entity);
+
+            return entity.Id;
         }
 
         public void UpdateCategoryById(CategoryInputModel category, int categoryId) {

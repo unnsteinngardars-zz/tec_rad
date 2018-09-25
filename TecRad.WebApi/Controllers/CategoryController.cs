@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using TecRad.Models.Attributes;
 using TecRad.Models.Category;
 using TecRad.Models.Exceptions;
 using TecRad.Services.Interfaces;
+using System.Linq;
+using System.Collections.Generic;
+using TecRad.WebApi.Extensions;
 
 namespace TecRad.WebApi.Controllers
 {
-	[Route("/api/categories")]
+	[Route("/api/categories/")]
 	public class CategoryController : Controller
 	{
 
@@ -22,7 +26,12 @@ namespace TecRad.WebApi.Controllers
 		[Route("")]
 		public IActionResult GetAllCategories()
 		{
-			return Ok(_categoryService.GetAllCategories());
+			List<CategoryDTO> tempList = new List<CategoryDTO>();
+			_categoryService.GetAllCategories().ToList().ForEach(c => {
+				c.Links.AddReference("self", $"http://localhost:5000/api/categories/{c.Id}");
+				tempList.Add(c);
+			});
+			return Ok(tempList);
 		}
 
 		[HttpGet]
@@ -33,8 +42,8 @@ namespace TecRad.WebApi.Controllers
 		}
 
 		/** ------------- AUTHORIZED ------------- */
-		// TODO:: AUTHORIZE dis sjit
-		
+
+		[Authorize]
 		[HttpPost]
 		[Route("")]
 		public IActionResult CreateNewCategory([FromBody] CategoryInputModel category)
@@ -43,6 +52,7 @@ namespace TecRad.WebApi.Controllers
 			return Ok(_categoryService.CreateNewCategory(category));
 		}
 
+		[Authorize]
 		[HttpPut]
 		[Route("{categoryId:int}")]
 		public IActionResult UpdateCategoryById([FromBody] CategoryInputModel category, int categoryId)
@@ -52,6 +62,7 @@ namespace TecRad.WebApi.Controllers
 			return NoContent();
 		}
 
+		[Authorize]
 		[HttpDelete]
 		[Route("{categoryId:int}")]
 		public IActionResult DeleteCategoryById(int categoryId)
@@ -59,6 +70,7 @@ namespace TecRad.WebApi.Controllers
 			return NoContent();
 		}
 
+		[Authorize]
 		[HttpPost]
 		[Route("{categoryId:int}/newsItems/{newsItemId:int}")]
 		public IActionResult LinkNewsItemToCategory(int categoryId, int newsItemId){

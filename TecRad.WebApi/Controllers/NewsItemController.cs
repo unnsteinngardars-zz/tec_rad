@@ -5,9 +5,11 @@ using Microsoft.Extensions.Primitives;
 using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 using TecRad.Models.NewsItem;
-using TecRad.Services.Interfaces;
 using TecRad.Models;
+using TecRad.Services.Interfaces;
 using TecRad.Models.Exceptions;
+using TecRad.WebApi.Extensions;
+using TecRad.Models.Attributes;
 
 namespace TecRad.WebApi.Controllers
 {
@@ -26,12 +28,16 @@ namespace TecRad.WebApi.Controllers
 		[Route("")]
 		public IActionResult GetAllNewsItems([FromQuery] int pageSize = 25, [FromQuery] int pageNumber = 1)
 		{
-			// TODO:: Link dótið && order descending !
+			List<NewsItemDTO> tempList = new List<NewsItemDTO>();
+			// var list = _newsItemService.GetAllNewsItems();
+			_newsItemService.GetAllNewsItems().ToList().ForEach(n => {
+				n.Links.AddReference("self", $"http://localhost:5000/api/{n.Id}");
+				tempList.Add(n);
+			});
 
 			var envelope = new Envelope<NewsItemDTO>(pageSize, pageNumber);
-			var list = _newsItemService.GetAllNewsItems();
-			envelope.Items = list.Skip((pageNumber - 1) * pageSize).Take(pageSize);
-			envelope.MaxPages = (int) Math.Ceiling(list.Count() / (decimal) pageSize);
+			envelope.Items = tempList.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+			envelope.MaxPages = (int) Math.Ceiling(tempList.Count() / (decimal) pageSize);
 			return Ok(envelope);
 		}
 
@@ -43,8 +49,8 @@ namespace TecRad.WebApi.Controllers
 		}
 
 		/** ------------- AUTHORIZED ------------- */
-		// TODO:: AUTHORIZE dis sjit
 
+		[Authorize]
 		[HttpPost]
 		[Route("")]
 		public IActionResult CreateNewNewsItem([FromBody] NewsItemInputModel newsItem)
@@ -53,6 +59,7 @@ namespace TecRad.WebApi.Controllers
 			return Ok(_newsItemService.CreateNewNewsItem(newsItem));
 		}
 
+		[Authorize]
 		[HttpPut]
 		[Route("{newsItemId:int}")]
 		public IActionResult UpdateNewsItemById([FromBody] NewsItemInputModel newsItem, int newsItemId)
@@ -61,7 +68,7 @@ namespace TecRad.WebApi.Controllers
 			_newsItemService.UpdateNewsItemById(newsItem, newsItemId);
 			return NoContent();
 		}
-
+		[Authorize]
 		[HttpDelete]
 		[Route("{newsItemId:int}")]
 		public IActionResult DeleteNewsItemById(int newsItemId)

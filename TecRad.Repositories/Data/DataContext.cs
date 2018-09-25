@@ -184,9 +184,7 @@ namespace TecRad.Repositories.Data
 		};
 
         public List<Author> getAuthors { get => _authors; set => _authors = value; }
-
         public List<Category> getCategories { get => _categories; set => _categories = value; }
-
         public List<NewsItem> getNewsItems { get => _newsItems; set => _newsItems = value; }
     
     }

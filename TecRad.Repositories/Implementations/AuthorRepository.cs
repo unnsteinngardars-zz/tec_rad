@@ -25,11 +25,12 @@ namespace TecRad.Repositories
 			_dataContext.getNewsItems.Where(n => n.AuthorId == authorId);
 
 		public int CreateNewAuthor(AuthorInputModel author){
-			var nextId = _dataContext.getAuthors.Count() + 1;
-			Author entity = Mapper.Map<Author>(author);
-			entity.Id = nextId;
-			_dataContext.getAuthors.Add(entity);
-			return nextId;
+			var items = _dataContext.getAuthors;
+            var entity = Mapper.Map<Author>(author);
+            entity.Id = items.Count +1;
+            items.Add(entity);
+
+            return entity.Id;
 		}
 
 		public void UpdateAuthorById(AuthorInputModel author, int authorId){

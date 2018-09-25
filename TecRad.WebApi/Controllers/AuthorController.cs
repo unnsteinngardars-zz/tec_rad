@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using TecRad.Models.Attributes;
 using TecRad.Models.Author;
 using TecRad.Models.Exceptions;
 using TecRad.Services;
 using TecRad.Services.Interfaces;
+using System.Linq;
+using TecRad.WebApi.Extensions;
 
 namespace TecRad.WebApi.Controllers
 {
-	[Route("/api/authors")]
+	[Route("/api/authors/")]
 	public class AuthorController : Controller
 	{
 		private readonly IAuthorService _authorService;
@@ -20,11 +23,15 @@ namespace TecRad.WebApi.Controllers
 		/** ------------- UNAUTHORIZED ------------- */
 
 		[HttpGet]
-		[Route("/authors")]
+		[Route("")]
 		public IActionResult GetAllAuthors()
 		{
-			var authors =_authorService.GetAllAuthors();
-			return Ok(authors);
+			List<AuthorDTO> tempList = new List<AuthorDTO>();
+			_authorService.GetAllAuthors().ToList().ForEach(a => {
+				a.Links.AddReference("self", $"http://localhost:5000/api/authors/{a.Id}");
+				tempList.Add(a);
+			});
+			return Ok(tempList);
 		}
 
 		[HttpGet]
@@ -42,8 +49,8 @@ namespace TecRad.WebApi.Controllers
 		}
 
 		/** ------------- AUTHORIZED ------------- */
-		// TODO:: AUTHORIZE dis sjit
 
+		[Authorize]
 		[HttpPost]
 		[Route("")]
 		public IActionResult CreateNewAuthor([FromBody] AuthorInputModel author)
@@ -52,6 +59,7 @@ namespace TecRad.WebApi.Controllers
 			return Ok(_authorService.CreateNewAuthor(author));
 		}
 
+		[Authorize]
 		[HttpPut]
 		[Route("{authorId:int}")]
 		public IActionResult UpdateAuthorById([FromBody] AuthorInputModel author, int authorId)
@@ -61,6 +69,7 @@ namespace TecRad.WebApi.Controllers
 			return NoContent();
 		}
 
+		[Authorize]
 		[HttpDelete]
 		[Route("{authorId:int}")]
 		public IActionResult DeleteAuthorById(int authorId)
@@ -69,7 +78,6 @@ namespace TecRad.WebApi.Controllers
 			return NoContent();
 		}
 
-		// TODO : Er POST rétt hér ?
 		[HttpPost]
 		[Route("{authorId:int}/newsItems/{newsItemId}")]
 		public IActionResult LinkAuthorToNewsItem(int authorId, int newsItemId)

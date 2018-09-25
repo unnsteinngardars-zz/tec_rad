@@ -1,6 +1,6 @@
 namespace TecRad.Models.Category
 {
-	public class CategoryDTO
+	public class CategoryDTO : HyperMediaModel
 	{
 		public int Id { get; set; }
 

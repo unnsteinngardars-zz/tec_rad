@@ -16,17 +16,18 @@ namespace TecRad.Repositories
             _dataContext = dataContext;
         }   
         public IEnumerable<NewsItem> GetAllNewsItems() => 
-            _dataContext.getNewsItems;
+            _dataContext.getNewsItems.OrderByDescending(n => n.PublishDate);
         
         public NewsItem GetNewsItemById(int newsItemId) => 
             _dataContext.getNewsItems.FirstOrDefault(n => n.Id == newsItemId);
 
         public int CreateNewNewsItem(NewsItemInputModel newsItem){
-            var nextId = _dataContext.getNewsItems.Count() +1 ;
+            var items = _dataContext.getNewsItems;
             var entity = Mapper.Map<NewsItem>(newsItem);
-            entity.Id = nextId;
-            _dataContext.getNewsItems.Add(entity);
-            return nextId;
+            entity.Id = items.Count +1;
+            items.Add(entity);
+
+            return entity.Id;
         }
 
         public void UpdateNewsItemById(NewsItemInputModel newsItem, int newsItemId){
@@ -36,6 +37,7 @@ namespace TecRad.Repositories
             updateNewsItem.ShortDescription = newsItem.ShortDescription;
             updateNewsItem.LongDescription = newsItem.LongDescription;
             updateNewsItem.PublishDate = newsItem.PublishDate == null ? DateTime.Now : newsItem.PublishDate;
+            updateNewsItem.ModifiedDate = DateTime.Now;
         }
 
         public void DeleteNewsItem(NewsItem newsItem){

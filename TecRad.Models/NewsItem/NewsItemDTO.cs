@@ -1,6 +1,6 @@
 namespace TecRad.Models.NewsItem
 {
-	public class NewsItemDTO
+	public class NewsItemDTO : HyperMediaModel
 	{
 		public int Id { get; set; }
 
