@@ -21,7 +21,7 @@ namespace TecRad.WebApi.Controllers
 		{
 			_newsItemService = newsItemService;
 		}
-		
+
 		/** ------------- UNAUTHORIZED ------------- */
 
 		[HttpGet]
@@ -30,14 +30,16 @@ namespace TecRad.WebApi.Controllers
 		{
 			List<NewsItemDTO> tempList = new List<NewsItemDTO>();
 			// var list = _newsItemService.GetAllNewsItems();
-			_newsItemService.GetAllNewsItems().ToList().ForEach(n => {
-				n.Links.AddReference("self", $"http://localhost:5000/api/{n.Id}");
+			_newsItemService.GetAllNewsItems().ToList().ForEach(n =>
+			{
+				n.Links.AddReference("rel", "self");
+				n.Links.AddReference("href", $"http://localhost:5000/api/{n.Id}");
 				tempList.Add(n);
 			});
 
 			var envelope = new Envelope<NewsItemDTO>(pageSize, pageNumber);
 			envelope.Items = tempList.Skip((pageNumber - 1) * pageSize).Take(pageSize);
-			envelope.MaxPages = (int) Math.Ceiling(tempList.Count() / (decimal) pageSize);
+			envelope.MaxPages = (int)Math.Ceiling(tempList.Count() / (decimal)pageSize);
 			return Ok(envelope);
 		}
 
@@ -55,7 +57,7 @@ namespace TecRad.WebApi.Controllers
 		[Route("")]
 		public IActionResult CreateNewNewsItem([FromBody] NewsItemInputModel newsItem)
 		{
-			if(!ModelState.IsValid) { throw new ModelFormatException("News item was not properly formatted"); }
+			if (!ModelState.IsValid) { throw new ModelFormatException("News item was not properly formatted"); }
 			return Ok(_newsItemService.CreateNewNewsItem(newsItem));
 		}
 
@@ -64,7 +66,7 @@ namespace TecRad.WebApi.Controllers
 		[Route("{newsItemId:int}")]
 		public IActionResult UpdateNewsItemById([FromBody] NewsItemInputModel newsItem, int newsItemId)
 		{
-			if(!ModelState.IsValid) { throw new ModelFormatException("News item was not properly formatted"); }
+			if (!ModelState.IsValid) { throw new ModelFormatException("News item was not properly formatted"); }
 			_newsItemService.UpdateNewsItemById(newsItem, newsItemId);
 			return NoContent();
 		}
