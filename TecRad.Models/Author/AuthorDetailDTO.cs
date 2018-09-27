@@ -1,6 +1,6 @@
 namespace TecRad.Models.Author
 {
-	public class AuthorDetailDTO
+	public class AuthorDetailDTO : HyperMediaModel
 	{
 		public int Id { get; set; }
 

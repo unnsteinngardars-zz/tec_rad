@@ -2,7 +2,7 @@ using System;
 
 namespace TecRad.Models.NewsItem
 {
-	public class NewsItem
+	public class NewsItem : HyperMediaModel
 	{
 		public int Id { get; set; }
 

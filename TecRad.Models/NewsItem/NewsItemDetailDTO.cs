@@ -2,7 +2,7 @@ using System;
 
 namespace TecRad.Models.NewsItem
 {
-	public class NewsItemDetailDTO
+	public class NewsItemDetailDTO : HyperMediaModel
 	{
 		public int Id { get; set; }
 
@@ -15,5 +15,9 @@ namespace TecRad.Models.NewsItem
 		public string LongDescription { get; set; }
 
 		public DateTime PublisDate { get; set; }
+
+		public int AuthorId { get; set; }
+
+		public int CategoryId { get; set; }
 	}
 }

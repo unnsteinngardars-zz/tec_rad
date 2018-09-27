@@ -2,7 +2,7 @@ using System;
 
 namespace TecRad.Models.Author
 {
-	public class Author
+	public class Author : HyperMediaModel
 	{
 		public int Id { get; set; }
 

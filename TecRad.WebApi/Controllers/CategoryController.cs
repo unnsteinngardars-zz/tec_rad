@@ -6,6 +6,7 @@ using TecRad.Services.Interfaces;
 using System.Linq;
 using System.Collections.Generic;
 using TecRad.WebApi.Extensions;
+using Newtonsoft.Json.Linq;
 
 namespace TecRad.WebApi.Controllers
 {
@@ -26,26 +27,31 @@ namespace TecRad.WebApi.Controllers
 		[Route("")]
 		public IActionResult GetAllCategories()
 		{
+			JObject self = new JObject();
 			List<CategoryDTO> tempList = new List<CategoryDTO>();
-			_categoryService.GetAllCategories().ToList().ForEach(c => {
-				c.Links.AddReference("rel", "self");
-				c.Links.AddReference("href", $"http://localhost:5000/api/categories/{c.Id}");
-				c.Links.AddReference("update", $"http://localhost:5000/api/categories/{c.Id}");
-				c.Links.AddReference("delete", $"http://localhost:5000/api/categories/{c.Id}");
+			_categoryService.GetAllCategories().ToList().ForEach(c =>
+			{
+				self["href"] = $"http:/localhost:5000/api/categories/{c.Id}";
+				c.Links.AddReference("rel", self);
+				c.Links.AddReference("href", self);
+				c.Links.AddReference("update", self);
+				c.Links.AddReference("delete", self);
 				tempList.Add(c);
 			});
 			return Ok(tempList);
 		}
 
 		[HttpGet]
-		[Route("{categoryId:int}")]
+		[Route("{categoryId:int}", Name = "GetCategoryById")]
 		public IActionResult GetCategoryById(int categoryId)
 		{
 			var category = _categoryService.GetCategoryById(categoryId);
-			category.Links.AddReference("rel", "self");
-			category.Links.AddReference("href", $"http://localhost:5000/api/categories/{category.Id}");
-			category.Links.AddReference("update", $"http://localhost:5000/api/categories/{category.Id}");
-			category.Links.AddReference("delete", $"http://localhost:5000/api/categories/{category.Id}");
+			JObject self = new JObject();
+			self["href"] = $"http://localhost:5000/api/categories/{category.Id}";
+			category.Links.AddReference("rel", self);
+			category.Links.AddReference("href", self);
+			category.Links.AddReference("update", self);
+			category.Links.AddReference("delete", self);
 			return Ok(category);
 		}
 
@@ -56,8 +62,9 @@ namespace TecRad.WebApi.Controllers
 		[Route("")]
 		public IActionResult CreateNewCategory([FromBody] CategoryInputModel category)
 		{
-			if(!ModelState.IsValid) { throw new ModelFormatException("Category was not properly formatted"); }
-			return Ok(_categoryService.CreateNewCategory(category));
+			if (!ModelState.IsValid) { throw new ModelFormatException("Category was not properly formatted"); }
+			var id = _categoryService.CreateNewCategory(category);
+			return CreatedAtRoute("GetCategoryById", new { categoryId = id }, null);
 		}
 
 		[Authorize]
@@ -65,7 +72,7 @@ namespace TecRad.WebApi.Controllers
 		[Route("{categoryId:int}")]
 		public IActionResult UpdateCategoryById([FromBody] CategoryInputModel category, int categoryId)
 		{
-			if(!ModelState.IsValid) { throw new ModelFormatException("Category was not properly formatted"); }
+			if (!ModelState.IsValid) { throw new ModelFormatException("Category was not properly formatted"); }
 			_categoryService.UpdateCategoryById(category, categoryId);
 			return NoContent();
 		}
@@ -74,14 +81,16 @@ namespace TecRad.WebApi.Controllers
 		[HttpDelete]
 		[Route("{categoryId:int}")]
 		public IActionResult DeleteCategoryById(int categoryId)
-		{	_categoryService.DeleteCategoryById(categoryId);
+		{
+			_categoryService.DeleteCategoryById(categoryId);
 			return NoContent();
 		}
 
 		[Authorize]
 		[HttpPost]
 		[Route("{categoryId:int}/newsItems/{newsItemId:int}")]
-		public IActionResult LinkNewsItemToCategory(int categoryId, int newsItemId){
+		public IActionResult LinkNewsItemToCategory(int categoryId, int newsItemId)
+		{
 			_categoryService.LinkNewsItemToCategory(categoryId, newsItemId);
 			return Ok();
 		}
