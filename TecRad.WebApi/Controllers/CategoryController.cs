@@ -28,7 +28,10 @@ namespace TecRad.WebApi.Controllers
 		{
 			List<CategoryDTO> tempList = new List<CategoryDTO>();
 			_categoryService.GetAllCategories().ToList().ForEach(c => {
-				c.Links.AddReference("self", $"http://localhost:5000/api/categories/{c.Id}");
+				c.Links.AddReference("rel", "self");
+				c.Links.AddReference("href", $"http://localhost:5000/api/categories/{c.Id}");
+				c.Links.AddReference("update", $"http://localhost:5000/api/categories/{c.Id}");
+				c.Links.AddReference("delete", $"http://localhost:5000/api/categories/{c.Id}");
 				tempList.Add(c);
 			});
 			return Ok(tempList);
@@ -38,7 +41,12 @@ namespace TecRad.WebApi.Controllers
 		[Route("{categoryId:int}")]
 		public IActionResult GetCategoryById(int categoryId)
 		{
-			return Ok(_categoryService.GetCategoryById(categoryId));
+			var category = _categoryService.GetCategoryById(categoryId);
+			category.Links.AddReference("rel", "self");
+			category.Links.AddReference("href", $"http://localhost:5000/api/categories/{category.Id}");
+			category.Links.AddReference("update", $"http://localhost:5000/api/categories/{category.Id}");
+			category.Links.AddReference("delete", $"http://localhost:5000/api/categories/{category.Id}");
+			return Ok(category);
 		}
 
 		/** ------------- AUTHORIZED ------------- */

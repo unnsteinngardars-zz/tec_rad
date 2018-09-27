@@ -14,6 +14,15 @@ namespace TecRad.Repositories
 		public AuthorRepository(IDataContext dataContext){
 			_dataContext = dataContext;			
 		}
+
+		/* From teacher:
+		"Betri leið væri að sækja stærsta Id 
+		og incrementa það þegar verið er að vinna með lista." */
+		private Author ToAuthor(AuthorInputModel author){
+			var entity = Mapper.Map<Author>(author);
+			entity.Id = _dataContext.getAuthors.Max(a => a.Id) +1; 
+			return entity;
+		}
 		public IEnumerable<Author> GetAllAuthors() => 
 			_dataContext.getAuthors;
 
@@ -25,11 +34,8 @@ namespace TecRad.Repositories
 			_dataContext.getNewsItems.Where(n => n.AuthorId == authorId);
 
 		public int CreateNewAuthor(AuthorInputModel author){
-			var items = _dataContext.getAuthors;
-            var entity = Mapper.Map<Author>(author);
-            entity.Id = items.Count +1;
-            items.Add(entity);
-
+			var entity = ToAuthor(author);
+			_dataContext.getAuthors.Add(entity);
             return entity.Id;
 		}
 

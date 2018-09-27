@@ -14,6 +14,15 @@ namespace TecRad.Repositories
         public CategoryRepository(IDataContext dataContext) {
             _dataContext = dataContext;
         }
+
+        /* From teacher:
+		"Betri leið væri að sækja stærsta Id 
+		og incrementa það þegar verið er að vinna með lista." */
+        public Category ToCategory(CategoryInputModel category){
+            var entity = Mapper.Map<Category>(category);
+            entity.Id = _dataContext.getCategories.Max(c => c.Id) +1;
+            return entity;
+        }
         public IEnumerable<Category> GetAllCategories() => 
            _dataContext.getCategories;
             
@@ -21,11 +30,8 @@ namespace TecRad.Repositories
             _dataContext.getCategories.FirstOrDefault(c => c.Id == categoryId);
 
         public int CreateNewCategory(CategoryInputModel category){
-            var items = _dataContext.getCategories;
-            var entity = Mapper.Map<Category>(category);
-            entity.Id = items.Count +1;
-            items.Add(entity);
-
+            var entity = ToCategory(category);
+            _dataContext.getCategories.Add(entity);
             return entity.Id;
         }
 

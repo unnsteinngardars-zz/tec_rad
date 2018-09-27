@@ -15,6 +15,15 @@ namespace TecRad.Repositories
         public NewsItemRepository(IDataContext dataContext){
             _dataContext = dataContext;
         }   
+        
+        /* From teacher:
+		"Betri leið væri að sækja stærsta Id 
+		og incrementa það þegar verið er að vinna með lista." */
+        private NewsItem ToNewsItem(NewsItemInputModel author){
+            var entity = Mapper.Map<NewsItem>(author);
+            entity.Id = _dataContext.getNewsItems.Max(n => n.Id)+1;
+            return entity;
+        }
         public IEnumerable<NewsItem> GetAllNewsItems() => 
             _dataContext.getNewsItems.OrderByDescending(n => n.PublishDate);
         
@@ -22,11 +31,8 @@ namespace TecRad.Repositories
             _dataContext.getNewsItems.FirstOrDefault(n => n.Id == newsItemId);
 
         public int CreateNewNewsItem(NewsItemInputModel newsItem){
-            var items = _dataContext.getNewsItems;
-            var entity = Mapper.Map<NewsItem>(newsItem);
-            entity.Id = items.Count +1;
-            items.Add(entity);
-
+            var entity = ToNewsItem(newsItem);
+            _dataContext.getNewsItems.Add(entity);
             return entity.Id;
         }
 

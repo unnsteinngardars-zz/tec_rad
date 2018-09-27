@@ -29,11 +29,14 @@ namespace TecRad.WebApi.Controllers
 		public IActionResult GetAllNewsItems([FromQuery] int pageSize = 25, [FromQuery] int pageNumber = 1)
 		{
 			List<NewsItemDTO> tempList = new List<NewsItemDTO>();
-			// var list = _newsItemService.GetAllNewsItems();
+
 			_newsItemService.GetAllNewsItems().ToList().ForEach(n =>
 			{
 				n.Links.AddReference("rel", "self");
 				n.Links.AddReference("href", $"http://localhost:5000/api/{n.Id}");
+				n.Links.AddReference("update", $"http://localhost:5000/api/{n.Id}");
+				n.Links.AddReference("delete", $"http://localhost:5000/api/{n.Id}");
+
 				tempList.Add(n);
 			});
 
@@ -47,7 +50,12 @@ namespace TecRad.WebApi.Controllers
 		[Route("{newsItemId:int}")]
 		public IActionResult GetNewsItemById(int newsItemId)
 		{
-			return Ok(_newsItemService.GetNewsItemById(newsItemId));
+			var newsItem = _newsItemService.GetNewsItemById(newsItemId);
+			newsItem.Links.AddReference("rel", "self");
+			newsItem.Links.AddReference("href", $"http://localhost:5000/api/{newsItem.Id}");
+			newsItem.Links.AddReference("update", $"http://localhost:5000/api/{newsItem.Id}");
+			newsItem.Links.AddReference("delete", $"http://localhost:5000/api/{newsItem.Id}");
+			return Ok(newsItem);
 		}
 
 		/** ------------- AUTHORIZED ------------- */

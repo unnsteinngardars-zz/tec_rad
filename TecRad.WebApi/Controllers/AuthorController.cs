@@ -7,6 +7,7 @@ using TecRad.Services;
 using TecRad.Services.Interfaces;
 using System.Linq;
 using TecRad.WebApi.Extensions;
+using TecRad.Models.NewsItem;
 
 namespace TecRad.WebApi.Controllers
 {
@@ -28,7 +29,10 @@ namespace TecRad.WebApi.Controllers
 		{
 			List<AuthorDTO> tempList = new List<AuthorDTO>();
 			_authorService.GetAllAuthors().ToList().ForEach(a => {
-				a.Links.AddReference("self", $"http://localhost:5000/api/authors/{a.Id}");
+				a.Links.AddReference("rel", "self");
+				a.Links.AddReference("href", $"http://localhost:5000/api/authors/{a.Id}");
+				a.Links.AddReference("update", $"http://localhost:5000/api/authors/{a.Id}");
+				a.Links.AddReference("delete", $"http://localhost:5000/api/authors/{a.Id}");
 				tempList.Add(a);
 			});
 			return Ok(tempList);
@@ -38,14 +42,28 @@ namespace TecRad.WebApi.Controllers
 		[Route("{authorId:int}")]
 		public IActionResult GetAuthorById(int authorId)
 		{
-			return Ok(_authorService.GetAuthorById(authorId));
+			var author = _authorService.GetAuthorById(authorId);
+			author.Links.AddReference("rel", "self");
+			author.Links.AddReference("href", $"http://localhost:5000/api/authors/{author.Id}");
+			author.Links.AddReference("update", $"http://localhost:5000/api/authors/{author.Id}");
+			author.Links.AddReference("delete", $"http://localhost:5000/api/authors/{author.Id}");
+
+			return Ok(author);
 		}
 
 		[HttpGet]
 		[Route("{authorId:int}/newsItems")]
 		public IActionResult GetNewsItemsForAuthor(int authorId)
 		{
-			return Ok(_authorService.GetNewsItemsForAuthor(authorId));
+			List<NewsItemDTO> tempList = new List<NewsItemDTO>();
+			_authorService.GetNewsItemsForAuthor(authorId).ToList().ForEach(n => {
+				n.Links.AddReference("rel", "self");
+				n.Links.AddReference("href", $"http://localhost:5000/api/{n.Id}");
+				n.Links.AddReference("update", $"http://localhost:5000/api/{n.Id}");
+				n.Links.AddReference("delete", $"http://localhost:5000/api/{n.Id}");
+
+			});
+			return Ok(tempList);
 		}
 
 		/** ------------- AUTHORIZED ------------- */
