@@ -1,8 +1,3 @@
-TODO's : 
+# tec_rad
 
-* Athuga með pagesize og pagenumber fyrir getAllNewsItems
-
-* Athuga með private-public-static shitið í DataContext
-
-* Athuga með í update hvort maður eigi að setja DateTime.Now í publishDate
-
+This project is a school assignment from Reykjavík University. The reason for this repository being public is to showcase code examples. Copying this code to use for the same assignment is considered plagiarism and will likely result in a penalty carried out by the teacher.
